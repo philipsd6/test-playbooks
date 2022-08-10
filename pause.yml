@@ -1,0 +1,14 @@
+---
+- name: "Pause"
+  hosts: all
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: "Pause for {{ pause_minutes|default(10) }} minutes to test the executor pod"
+      pause:
+        minutes: "{{ pause_minutes|default(10) }}"
+
+    - name: "Successfully paused"
+      debug:
+        msg: "Pause for {{ pause_minutes|default(10) }} minutes was successful"
