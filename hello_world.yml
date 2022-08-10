@@ -1,0 +1,35 @@
+---
+- name: "Hello World"
+  hosts: all
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: "Hello World"
+      debug:
+        msg: "Hello World!"
+
+    - name: "Show all my variables"
+      vars:
+        msg: |-
+          Module (`vars`):
+          {{ vars | to_nice_yaml }}
+
+          Environment (`environment`):
+          --------------------------------
+          {{ environment | to_nice_yaml }}
+
+          Group Names (`group_names`):
+          --------------------------------
+          {{ group_names | to_nice_yaml }}
+
+          Groups (`groups`):
+          --------------------------------
+          {{ groups | to_nice_yaml }}
+
+          Host (`hostvars`):
+          --------------------------------
+          {{ hostvars | to_nice_yaml }}
+      debug:
+        msg: "{{ msg.split('\n') }}"
+      tags: debug_vars

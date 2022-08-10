@@ -1,0 +1,50 @@
+---
+# See https://pre-commit.com for more information
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks.git
+    rev: v4.0.1
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+        description: Forces line endings to be the UNIX 'lf' character
+      - id: fix-byte-order-marker
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: debug-statements
+        language_version: python3
+      - id: check-json
+      - id: pretty-format-json
+        args: ["--autofix", "--no-sort-keys", "--no-ensure-ascii"]
+      - id: forbid-new-submodules
+      - id: check-added-large-files
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.26.3
+    hooks:
+      - id: yamllint
+        files: \.(yaml|yml)$
+        types: [file, yaml]
+        entry: yamllint --strict
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        args:
+          # https://github.com/pre-commit/mirrors-isort/issues/9#issuecomment-624404082
+          - --filter-files
+  - repo: https://github.com/psf/black
+    rev: 21.12b0
+    hooks:
+      - id: black
+        language_version: python3
+  - repo: https://github.com/pycqa/flake8.git
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        language_version: python3
+        additional_dependencies:
+          - flake8-2020>=1.6.0
+          # - flake8-black>=0.1.1
+          - flake8-docstrings>=1.5.0
+          - flake8-pytest-style>=1.2.2
